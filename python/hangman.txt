@@ -1,0 +1,47 @@
+import random
+
+# Predefined list of words
+words = ["apple", "grape", "mango", "peach", "berry"]
+word = random.choice(words)
+
+# Setup
+guesses = ''
+turns = 6
+
+print("Welcome to Hangman!")
+print("Guess the word. You have 6 chances.")
+
+# Game loop
+while turns > 0:
+    failed = 0
+    display = ''
+
+    for letter in word:
+        if letter in guesses:
+            display += letter
+        else:
+            display += "_"
+            failed += 1
+
+    print("Word:", display)
+
+    if failed == 0:
+        print("🎉 You won! The word was:", word)
+        break
+
+    guess = input("Guess a letter: ").lower()
+
+    if guess in guesses:
+        print("⚠️ You already guessed that letter.")
+        continue
+
+    guesses += guess
+
+    if guess not in word:
+        turns -= 1
+        print("❌ Wrong! You have", turns, "guesses left.")
+
+    print()
+
+if turns == 0:
+    print("😢 You lost. The word was:", word)
